@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
-var utils = require('./src/utils.js.js');
-var consts = require('./src/consts.js.js');
+var utils = require('./utils.js');
+var consts = require('./consts.js');
 
 
 var lineColor =  consts.GRID_LINE_COLOR;
@@ -231,11 +231,11 @@ exports.DEFAULT_INTERVAL = defaultInterval;
 exports.LEVEL_INTERVAL = levelInterval;
 
 },{}],3:[function(require,module,exports){
-var utils = require('./utils.js.js');
-var consts = require('./consts.js.js');
-var shapes = require('./shapes.js.js');
-var views = require('./views.js.js');
-var canvas = require('./canvas.js.js');
+var utils = require('./utils.js');
+var consts = require('./consts.js');
+var shapes = require('./shapes.js');
+var views = require('./views.js');
+var canvas = require('./canvas.js');
 
 
 
@@ -541,7 +541,7 @@ window.Tetris = Tetris;
 
 
 },{"./canvas.js":1,"./consts.js":2,"./shapes.js":4,"./utils.js":5,"./views.js":6}],4:[function(require,module,exports){
-var consts = require('./consts.js.js');
+var consts = require('./consts.js');
 var COLORS =  consts.COLORS;
 var COLUMN_COUNT = consts.COLUMN_COUNT;
 
@@ -983,8 +983,8 @@ exports.proxy = proxy;
 /**
  All dom definitions and actions
 */
-var utils = require('./utils.js.js');
-var consts = require('./consts.js.js');
+var utils = require('./utils.js');
+var consts = require('./consts.js');
 
 var $ = utils.$;
 
@@ -1076,7 +1076,7 @@ var tetrisView = {
 	setScore:function(scoreNumber){
 		score.innerHTML = scoreNumber;	
 	},
-	// Update the final score
+	// Update the finnal score
 	setFinalScore:function(scoreNumber){
 		finalScore.innerHTML = scoreNumber;
 	},
