@@ -526,8 +526,8 @@ Tetris.prototype = {
 		views.setGameOver(this.isGameOver);
 		if (this.isGameOver){
 			views.setFinalScore(this.score);
-			if (this.score == 0){
-				if (this.score < highest_score){
+			if (this.score != 0){
+				if (this.score >= highest_score){
 					name_ = prompt("Congratulations, For scoring the highest ever,\n Please Enter Your Name","");
 				}
 				else{

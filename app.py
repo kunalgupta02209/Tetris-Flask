@@ -1,52 +1,27 @@
 # app.py
 from flask import Flask, request, jsonify, render_template
+from sortedcontainers import SortedDict 
 import pickle
+import os
+from datetime import datetime as dt
 tetris = Flask(__name__)
 
-@tetris.route('/getmsg/', methods=['GET'])
-def respond():
-    # Retrieve the name from url parameter
-    name = request.args.get("name", None)
-
-    # For debugging
-    print(f"got name {name}")
-
-    response = {}
-
-    # Check if user sent a name at all
-    if not name:
-        response["ERROR"] = "no name found, please send a name."
-    # Check if the user entered a number not a name
-    elif str(name).isdigit():
-        response["ERROR"] = "name can't be numeric."
-    # Now the user entered a valid name
-    else:
-        response["MESSAGE"] = f"Welcome {name} to our awesome platform!!"
-
-    # Return the response in json format
-    return jsonify(response)
-
-@tetris.route('/post/', methods=['POST'])
-def post_something():
-    param = request.form.get('name')
-    print(param)
-    # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
-    if param:
-        return jsonify({
-            "Message": f"Welcome {name} to our awesome platform!!",
-            # Add this option to distinct the POST request
-            "METHOD" : "POST"
-        })
-    else:
-        return jsonify({
-            "ERROR": "no name found, please send a name."
-        })
+if 'high_scores.pickle' in os.listdir():
+    high_scores_file = open('high_scores.pickle','rb')
+    high_scores = pickle.load(high_scores_file)
+else:
+    high_scores = SortedDict()
 
 @tetris.route('/update_list', methods = ['POST'])
 def update_list():
     name = request.form.get('name')
     score = request.form.get('score')
-    print(name, score)
+    if score in high_scores.keys():
+        high_scores[score].append({'name':name,'score':score,'id':str(dt.now().timestamp())})
+    else:
+        high_scores[score] = [{'name':name,'score':score,'id':str(dt.now().timestamp())}]
+    high_scores_file = open('high_scores.pickle','wb')
+    pickle.dump(high_scores,high_scores_file)
     return render_template("scores.html")
 
 @tetris.route('/show_scores')
@@ -55,20 +30,11 @@ def show_scores():
 
 @tetris.route('/get_high_scores', methods = ['GET'])
 def get_list():
+    high_scores_top = list(high_scores.keys())
+    high_scores_top.reverse()
+    high_scores_list = [value for k in high_scores_top for value in high_scores[k] ]
     data = {
-    "data": [
-      {
-        "id": "1",
-        "name": "John Q Public",
-        "score": 100,
-        
-      },
-      {
-        "id": "1",
-        "name": "Larry Bird",
-        "score": 200,
-        
-      }]
+    "data": high_scores_list
       }
     return jsonify(data)
 
