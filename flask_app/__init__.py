@@ -11,7 +11,8 @@ if 'high_scores.pickle' in os.listdir():
     high_scores = pickle.load(high_scores_file)
 else:
     high_scores = SortedDict()
-
+def getApp():
+    return tetris
 @tetris.route('/update_list', methods = ['POST'])
 def update_list():
     name = request.form.get('name')
