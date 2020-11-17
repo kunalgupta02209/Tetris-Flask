@@ -32,7 +32,7 @@ def show_scores():
 @tetris.route('/get_high_scores', methods = ['GET'])
 def get_list():
     high_scores_top = list(high_scores.keys())
-    high_scores_top.reverse()
+    high_scores_top
     high_scores_list = [value for k in high_scores_top for value in high_scores[k] ]
     data = {
     "data": high_scores_list
