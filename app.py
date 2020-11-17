@@ -1,5 +1,6 @@
 # app.py
 from flask import Flask, request, jsonify, render_template
+import pickle
 tetris = Flask(__name__)
 
 @tetris.route('/getmsg/', methods=['GET'])
@@ -40,6 +41,38 @@ def post_something():
         return jsonify({
             "ERROR": "no name found, please send a name."
         })
+
+@tetris.route('/update_list', methods = ['POST'])
+def update_list():
+    name = request.form.get('name')
+    score = request.form.get('score')
+    print(name, score)
+    return render_template("scores.html")
+
+@tetris.route('/show_scores')
+def show_scores():
+    return render_template("scores.html")
+
+@tetris.route('/get_high_scores', methods = ['GET'])
+def get_list():
+    data = {
+    "data": [
+      {
+        "id": "1",
+        "name": "John Q Public",
+        "score": 100,
+        
+      },
+      {
+        "id": "1",
+        "name": "Larry Bird",
+        "score": 200,
+        
+      }]
+      }
+    return jsonify(data)
+
+
 
 # A welcome message to test our server
 @tetris.route('/')

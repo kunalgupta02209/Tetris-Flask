@@ -238,8 +238,8 @@ var views = require('./views.js');
 var canvas = require('./canvas.js');
 
 
-
-
+var name = ""
+var highest_score = 100
 /**
 	Init game matrix
 */
@@ -368,6 +368,29 @@ function Tetris(id){
 	this.id = id;
 	this.init();
 }
+
+function post(path, params, method='post') {
+
+	// The rest of this code assumes you are not using a library.
+	// It can be made less wordy if you use one.
+	const form = document.createElement('form');
+	form.method = method;
+	form.action = path;
+  
+	for (const key in params) {
+	  if (params.hasOwnProperty(key)) {
+		const hiddenField = document.createElement('input');
+		hiddenField.type = 'hidden';
+		hiddenField.name = key;
+		hiddenField.value = params[key];
+  
+		form.appendChild(hiddenField);
+	  }
+	}
+  
+	document.body.appendChild(form);
+	form.submit();
+  }
 
 Tetris.prototype = {
 
@@ -503,6 +526,16 @@ Tetris.prototype = {
 		views.setGameOver(this.isGameOver);
 		if (this.isGameOver){
 			views.setFinalScore(this.score);
+			if (this.score == 0){
+				if (this.score < highest_score){
+					name_ = prompt("Congratulations, For scoring the highest ever,\n Please Enter Your Name","");
+				}
+				else{
+					name_ = prompt("Enter Your Name","");
+				}
+				post('/update_list', {name: name_, score:this.score});
+				
+			}
 		}
 	},
 	// Check and update game data
