@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Tetris</title>
 
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
 <div id="tetris">
@@ -29,7 +29,7 @@
 
 
 </body>
-<script src="dist/tetris.js"></script>
+<script src="{{ url_for('static', filename='dist/tetris.js') }}"></script>
 <script>
 	(function(){
 		var tetris = new Tetris('tetris');
