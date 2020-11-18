@@ -36,7 +36,7 @@
 			</div>
 		</nav>
         <div class="jumbotron">
-            <table id="example" class="display" style="width:50%">
+            <table id="scoresTable" class="display" style="width:50%">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -53,9 +53,8 @@
 <script>
 	function setupData() {
 		$(document).ready(function () {
-			$('#example').DataTable({
+			$('#scoresTable').DataTable({
 				"ajax": {
-					// "url": "static/objects2.txt", // This works for a static file
 					"url": "/get_high_scores", // This now also works
 					"dataType": "json",
 					"dataSrc": "data",
